@@ -4,6 +4,7 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 from collections import Counter
+
 class TwitterSentyment:
     def __init__(self, model_path):
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
@@ -18,15 +19,18 @@ class DataManager:
         self.file_path = file_path
 
     def load_data(self):
-        with open(self.file_path, 'r') as file:
+        with open(self.file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
         return data["sentences"]
 
     def process_data(self, sentences, sentiment_analyzer):
         results = []
         for sentence in sentences:
-            analysis = sentiment_analyzer.analyze_sentiment(sentence)
-            results.append((sentence, analysis))
+            try:
+                analysis = sentiment_analyzer.analyze_sentiment(sentence)
+                results.append((sentence, analysis))
+            except UnicodeDecodeError as e:
+                print(f"Skipping sentence due to encoding error: {e}")
         return results
 
     def print_results(self, results):
