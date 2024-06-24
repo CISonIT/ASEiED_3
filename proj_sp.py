@@ -33,7 +33,7 @@ def determine_emotion(text):
 
 
 # Wczytanie pliku CSV, aktualizacja wartości kolumny 'Sentiment' i wypisanie wartości
-input_file = 'dataset/tweets.csv'
+input_file = 'tweets.csv'
 
 with open(input_file, mode='r', newline='') as file:
     reader = csv.DictReader(file)
@@ -71,7 +71,7 @@ spark = SparkSession \
     .getOrCreate()
 
 # Wczytanie plik csv do dataFrame z automatycznie wywnioskowanym schematem
-tweets_csv = spark.read.csv('dataset/tweets.csv', inferSchema=True, header=True)
+tweets_csv = spark.read.csv('tweets.csv', inferSchema=True, header=True)
 tweets_csv.show(truncate=False, n=3)
 
 # Wybieram kolumny "SentimentText" i "Sentiment",przekształcam dane "Sentiment" na liczbę całkowitą
