@@ -1,38 +1,33 @@
-# Sentiment Analysis on Social Media
+# Social Media Sentiment Analysis Project
 
-## Objective
-The objective of this project is to perform sentiment analysis on selected social media platforms, with a focus on Twitter. This analysis aims to understand public sentiment regarding specific events and observe changes in these sentiments over time.
+## Project Overview
+This project focuses on sentiment analysis, specifically analyzing emotions or opinions from social media platforms related to specific events. The goal is to understand public sentiment changes over time using data gathered from Twitter.
 
-## Data
-The data used in this project is sourced from Twitter. Gathering this data requires the use of the Twitter API, which allows for the collection of tweets related to specific events.
-
-## Technologies
+## Technologies Used
 - AWS EMR (Elastic MapReduce)
 - Apache Spark
 - Python
 
-## Requirements
-1. **Data Collection**: Gather data from Twitter for the period of the selected event using the Twitter API.
-2. **Sentiment Analysis**: Analyze changes in public sentiment over time.
-3. **Visualization**: Present the results in a graphical format.
+## Project Details
+Initially, the project aimed to collect real-time Twitter data using the Twitter API. However, due to recent changes in Twitter's developer API (now referred to as X), free tier access no longer supports data pulling, making it a paid service. Consequently, an alternative approach was adopted.
 
-## Project Steps
+### Alternative Approach
+Instead of real-time data, a dataset from the 2016 US presidential election tweets was used. The dataset was in CSV format and contained tweets from that period. Prior to analysis, a preprocessing step was implemented to filter out non-textual elements like emoticons from the text data.
 
-### 1. Setting Up the Environment
-- Configure AWS EMR for scalable data processing.
-- Set up Apache Spark on AWS EMR for distributed data processing.
-- Prepare a Python environment with necessary libraries for data collection and sentiment analysis.
+For sentiment analysis, a pre-trained model called EmoRoBERTa from Hugging Face was employed. This model was fine-tuned to detect emotions based on text input. The dataset was formatted to fit the input requirements of the EmoRoBERTa model.
 
-### 2. Data Collection
-- Use the Twitter API to collect tweets related to the chosen event.
-- Store the collected data in a suitable format for processing (e.g., JSON, CSV).
+### Data Processing and Analysis
+AWS EMR with Apache Spark was utilized to create a data pipeline for processing the large dataset. Apache Spark provided the framework to distribute computation across multiple nodes, enabling efficient data processing.
 
-### 3. Data Processing and Sentiment Analysis
-- Load the collected data into Apache Spark.
-- Clean and preprocess the data (remove duplicates, handle missing values, etc.).
-- Perform sentiment analysis using a suitable Python library (e.g., TextBlob, VADER, or a pre-trained model from Hugging Face's Transformers).
-- Analyze changes in sentiment over time.
+### Results Visualization
+The results of sentiment analysis were visualized using Matplotlib, a Python plotting library. Graphical representations were generated to illustrate changes in sentiment over the course of the analyzed dataset.
 
-### 4. Visualization
-- Use a Python visualization library (e.g., Matplotlib, Seaborn, Plotly) to create graphical representations of the sentiment analysis results.
-- Ensure that the visualizations effectively communicate the changes in public sentiment over the selected period.
+## Contributors and Roles
+
+| Name               | Tasks                                                                                               |
+|--------------------|-----------------------------------------------------------------------------------------------------|
+| Jakub Cisoń        | Group management, documentation, data filtering from CSV tweets dataset, SparkSession setup         |
+| Michał Zarzycki    | Found pre-trained language model for emotion detection, basic data visualization, EMR configuration |
+| Jakub Ebertowski   | Created AWS pipeline for data processing                                                            |
+| Maria Szcześniak   | Assisted in pipeline creation, improved visualization techniques (attempted)                        |
+| Łukasz Czarzasty   |                                                                                                     |
